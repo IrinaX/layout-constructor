@@ -1,0 +1,61 @@
+@import "../variables";
+
+.btn {
+    //font-weight: 700;
+    display: inline-block;
+    letter-spacing: 0.6px;
+    font-size: 14px;
+    line-height: 28px;
+    padding: 5px 20px;
+    background: #FFFFFF;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 100px;
+    outline: none !important;
+    transition: transform 0.1s ease-in, box-shadow 0.1s ease-in;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+    }
+
+    &.btn_primary {
+        background: linear-gradient(180deg, lighten($primary, 5%) 0%, $primary 100%);
+        color: white;
+
+    }
+
+    &.btn_dark {
+        background: linear-gradient(180deg, lighten($dark, 5%) 0%, $dark 100%);
+        color: white;
+    }
+
+    &.btn_info {
+        background: linear-gradient(180deg, lighten($info, 10%) 0%, $info 100%);
+        color: white;
+    }
+
+    &.btn_light {
+    }
+
+    &.btn_link {
+        background: none;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
+
+    &.btn_sm {
+        font-size: 12px;
+        line-height: 16px;
+        padding: 5px 10px;
+    }
+
+    &.btn_form {
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+}

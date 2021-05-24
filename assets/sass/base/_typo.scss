@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&display=swap');
+
+body {
+    font: $base-font;
+    font-weight: 400;
+}
+
+@each $level in (1, 2, 3, 4, 5) {
+    .h#{$level}, h#{$level} {
+        @include make-header($level);
+    }
+}
+
+a {
+    color: $primary;
+
+    &:hover {
+        color: darken($primary, 10%);
+    }
+}
+
+p, .list-styled {
+    a {
+        border-bottom: 1px dashed orange;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+[role=button] {
+    cursor: pointer;
+}
+
+small, .small {
+    line-height: 1.1;
+    font-size: 80%;
+}
+
+p {
+    margin-bottom: 0;
+
+    & + & {
+        margin-top: 15px;
+    }
+}

@@ -1,0 +1,53 @@
+$primary: rgba(#c6362e, 1);
+$secondary: rgba(#822EC6, 1);
+$success: rgba(#2EC69C, 1);
+$danger: rgba(#FF0000, 1);
+$dark: rgba(#242424, 1);
+$gray: rgba(#DADADA, 1);
+$info: rgba(#A6A5FF, 1);
+$light: rgba(#e3e3e3, 1);
+$primary-gradient: linear-gradient(143deg, #f6645c, #c6362e);
+
+$base-font-family: Roboto, sans-serif;
+$header-font-family: Roboto Slab, sans-serif;
+
+$base-font: 16px/150% $base-font-family;
+
+$h1-font: 800 64px/100% $header-font-family;
+$h1-font-sm: 800 36px/130% $header-font-family;
+
+$h2-font: 800 48px/100% $header-font-family;
+$h2-font-sm: 800 32px/130% $header-font-family;
+
+$h3-font: 800 28px/100% $header-font-family;
+$h3-font-sm: 800 24px/130% $header-font-family;
+
+$h4-font: 400 24px/130% $header-font-family;
+$h4-font-sm: 400 18px/130% $header-font-family;
+
+$h5-font: 800 20px/130% $header-font-family;
+$h5-font-sm: 800 18px/130% $header-font-family;
+
+$grid-columns: 12;
+$grid-gutter-width: 30px;
+$grid-row-columns: 6;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px
+);
+
+@import "./mixins/grid";
+@import "./mixins/breakpoints";
+@import "./mixins/typo";
+@import "./mixins/list";

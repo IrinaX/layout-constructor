@@ -1,0 +1,35 @@
+$headers: (
+    1: (
+        xl:$h1-font,
+        sm:$h1-font-sm,
+    ),
+    2: (
+        xl:$h2-font,
+        sm:$h2-font-sm,
+    ),
+    3: (
+        xl:$h3-font,
+        sm:$h3-font-sm,
+    ),
+    4: (
+        xl:$h4-font,
+        sm:$h4-font-sm,
+    ),
+    5: (
+        xl:$h5-font,
+        sm:$h5-font-sm,
+    ),
+);
+
+@mixin make-header($level) {
+    font: map-get(map-get($headers, $level), 'xl');
+    margin-bottom: 0.5em;
+
+    @include media-breakpoint-down(sm) {
+        font: map-get(map-get($headers, $level), 'sm');
+    }
+}
+
+@mixin base-font() {
+    font: $base-font;
+}
