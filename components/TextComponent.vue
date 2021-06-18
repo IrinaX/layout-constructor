@@ -1,10 +1,10 @@
 <template>
     <base-container
         :id="id"
-        :d-curr-dropdown="d_currDropdown"
+        :curr-drop-down="d_currDropdown"
         :editor="editor"
         :movable="!d_contenteditable"
-        @openingDropdown="(currDropdown)=>this.d_currDropdown = currDropdown"
+        @openingDropdown="openDropdown"
         @dblclick.native="d_contenteditable = true"
         @blur="d_contenteditable = false"
     >
@@ -90,11 +90,11 @@
                      class="toolbar__dropdown"
                 >
                     <ul>
-                        <li>
+                        <li class="toolbar__ff-input-wrap">
                             <input v-model="d_params.fontFamily.searchQuery"
                                    type="text"
                                    class="input"
-                                   placeholder="Font Name"
+                                   placeholder="Найти шрифт"
                             >
                         </li>
                         <li
@@ -112,7 +112,7 @@
                         <li v-if="c_filteredFonts.length<1"
                             class="nothing-found"
                         >
-                            Nothing found
+                            Ничего не найдено
                         </li>
                     </ul>
                 </div>
@@ -185,9 +185,14 @@
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
 import { Bold, Italic, Strike, Underline } from 'tiptap-extensions';
 import BaseContainer from '~/components/BaseContainer';
+
 export default {
     name: 'TextComponent',
-    components: { BaseContainer, EditorContent, EditorMenuBar },
+    components: {
+        BaseContainer,
+        EditorContent,
+        EditorMenuBar,
+    },
     props: {
         editor: {
             type: Object,
@@ -200,8 +205,8 @@ export default {
             default: '',
         },
         active: {
-            type: String,
-            default: '',
+            type: Boolean,
+            default: false,
         },
         id: {
             type: String,
@@ -239,8 +244,9 @@ export default {
                 },
                 fontFamily: {
                     active: false,
-                    values: ['Roboto', 'Rowdies', 'Roboto Mono', 'Raleway', 'Playfair Display', 'Lexend Zetta', 'Oswald', 'Ranchers',
-                        'Bebas Neue', 'Anton', 'Krona One', 'Grenze Gotisch', 'Lobster', 'Pacifico', 'Indie Flower', 'Dancing Script'],
+                    values: ['Roboto', 'Raleway', 'Playfair Display', 'Oswald',
+                        'Lobster', 'Pacifico', 'Yanone Kaffeesatz', 'Comfortaa', 'Caveat',
+                        'Poiret One', 'Montserrat Alternates', 'Bad Script', 'Cormorant Infant', 'Kelly Slab'],
                     links: [],
                     currValue: '',
                     searchQuery: '',
@@ -284,6 +290,11 @@ export default {
         // Always destroy your editor instance when it's no longer needed
         this.d_editor.destroy();
     },
+    mounted() {
+        for (let i = 0; i < this.d_params.fontFamily.values.length; i++) {
+            this.setFontFamilyLinks(this.d_params.fontFamily.values[i]);
+        }
+    },
     methods: {
         changeFontWeight() {
             this.editor.commands.bold();
@@ -318,19 +329,192 @@ export default {
         },
         changeFontFamily(value) {
             this.d_params.fontFamily.currValue = value;
-            if (!this.d_params.fontFamily.links.includes(this.d_params.fontFamily.currValue)) {
-                this.d_params.fontFamily.links.push(this.d_params.fontFamily.currValue);
+            // this.setFontFamilyLinks(this.d_params.fontFamily.currValue);
+        },
+        setFontFamilyLinks(val) {
+            if (!this.d_params.fontFamily.links.includes(val)) {
+                this.d_params.fontFamily.links.push(val);
                 const link = document.createElement('link');
                 link.setAttribute('rel', 'stylesheet');
                 link.setAttribute('type', 'text/css');
-                link.setAttribute('href', 'https://fonts.googleapis.com/css?family=' + this.d_params.fontFamily.currValue.replace(' ', '+'));
+                link.setAttribute('href', 'https://fonts.googleapis.com/css?family=' + val.replace(' ', '+'));
                 document.head.appendChild(link);
             }
+        },
+        openDropdown(currDropdown) {
+            // eslint-disable-next-line no-console
+            console.log(currDropdown);
+            this.d_currDropdown = currDropdown;
         },
     },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+.textarea {
+    height: 100%;
+}
+
+.toolbar__fc {
+
+    .color-icon {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: 2px solid rgba(0, 0, 0, .2);
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    .toolbar__dropdown {
+        width: 185px;
+        text-align: left;
+        padding: 10px;
+
+        .toolbar__dropdown-label {
+            margin-bottom: 10px;
+        }
+
+        .toolbar__dropdown-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .toolbar__dropdown-color-btn {
+            outline: none;
+            border: 2px solid rgba(0, 0, 0, .2);
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            margin: 0 10px 10px 0;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+}
+
+.toolbar__fz, .toolbar__ff {
+    input {
+        outline: none;
+        color: #6f6f6f;
+        margin: 0;
+        padding: 0;
+        border: none;
+        text-align: center;
+    }
+}
+
+.toolbar__fz {
+    .toolbar__dropdown ul {
+        height: 285px;
+    }
+}
+
+.toolbar__ff {
+    .toolbar__ff-input-wrap{
+        display: flex;
+    }
+    input {
+        padding: 6px;
+        border-bottom: 2px solid #6f6f6f;
+        &::placeholder{
+            font-size: 14px;
+        }
+    }
+
+    .toolbar__dropdown {
+        min-width: 170px;
+    }
+
+    .nothing-found {
+        padding: 6px 20px;
+        border: none;
+        outline: none;
+        background: none;
+        display: block;
+        color: #6f6f6f7d;
+
+    }
+}
+
+.base-component-menu__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.is-active {
+        background: rgba(111, 111, 111, .21);
+
+    }
+}
+
+.toolbar__dropdown {
+    color: #6f6f6f;
+    background: white;
+    border: 1px solid #d2d2d2;
+    top: 0;
+    left: 65px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px #606a75;
+    /*box-shadow: 0 6px 20px #aed5ff;*/
+    position: absolute;
+    text-align: center;
+    overflow: hidden;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        height: 400px;
+        overflow: hidden;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #F5F5F5;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(#d2d2d2, .9);
+        }
+
+        li {
+            padding: 0;
+
+            .toolbar__dropdown-btn {
+                padding: 6px 20px;
+                border: none;
+                outline: none;
+                background: none;
+                display: block;
+                width: 100%;
+                color: #6f6f6f;
+                cursor: pointer;
+
+                &:hover {
+                    color: black;
+                    background: rgba(111, 111, 111, .13);
+                }
+            }
+
+            .active {
+                color: black;
+                background: rgba(#6f6f6f, .5);
+            }
+        }
+    }
+}
 
 </style>

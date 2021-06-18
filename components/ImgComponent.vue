@@ -36,13 +36,13 @@ export default {
     },
     data() {
         return {
-            d_currDropDown: 'nope',
+            d_currDropdown: 'nope',
             d_src: this.src || null,
         };
     },
     methods: {
         openDropDown(currDropDown) {
-            this.d_currDropDown = currDropDown;
+            this.d_currDropdown = currDropDown;
         },
     },
 };

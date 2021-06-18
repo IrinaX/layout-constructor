@@ -51,15 +51,15 @@
                         <li>
                             <button type="button"
                                     class="toolbar__dropdown-btn"
-                                    title="На задний план"
-                                    @click="editor.bringBack(id)"
+                                    title="На передний план"
+                                    @click="editor.bringFront(id)"
                             >
                                 <i class="uil uil-bring-bottom" />
                             </button>
                             <button type="button"
                                     class="toolbar__dropdown-btn"
-                                    title="На передний план"
-                                    @click="editor.bringFront(id)"
+                                    title="На задний план"
+                                    @click="editor.bringBack(id)"
                             >
                                 <i class="uil uil-bring-front" />
                             </button>
@@ -70,17 +70,17 @@
 
             <button type="button"
                     class="base-component-menu__btn"
-                    title="Пример кнопки которая будет в меню у всех компонентов"
+                    title="Удалить"
                     @click="editor.remove(id)"
             >
                 <i class="uil uil-trash-alt" />
             </button>
-            <button type="button"
-                    class="base-component-menu__btn"
-                    title="Пример кнопки которая будет в меню у всех компонентов"
-            >
-                <i class="uil uil-question-circle" />
-            </button>
+            <!--            <button type="button"-->
+            <!--                    class="base-component-menu__btn"-->
+            <!--                    title="Пример кнопки которая будет в меню у всех компонентов"-->
+            <!--            >-->
+            <!--                <i class="uil uil-question-circle" />-->
+            <!--            </button>-->
         </div>
         <div v-if="d_isActive"
              class="debug-info"
@@ -451,6 +451,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "assets/sass/variables";
 .base-component-menu {
     background: white;
     border: 1px solid #d2d2d2;
@@ -476,7 +477,7 @@ export default {
     cursor: pointer;
 
     &:hover {
-        color: #6253e2;
+        color: $secondary;
     }
 
     &:focus {
@@ -485,6 +486,7 @@ export default {
 }
 
 .debug-info {
+    display: none;
     white-space: pre-wrap;
     font-size: 12px;
     line-height: 14px;
@@ -505,7 +507,7 @@ export default {
 }
 
 .base-component_active {
-    border: 2px dashed red;
+    border: 2px solid $secondary;
 
     &.dot_active {
         /* &:before {
@@ -519,18 +521,17 @@ export default {
          }*/
     }
 }
-
 .base-component__dot {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 10px;
+    height: 10px;
     background: white;
-    border: 1px solid black;
-    border-radius: 50%;
+    border: 1px solid $secondary;
+    //border-radius: 50%;
     cursor: nwse-resize;
 
     &.dot_active {
-        background: red;
+        background:$secondary;
     }
 
     &:nth-child(1) {
@@ -556,18 +557,18 @@ export default {
 
 .base-component__rotate-btn {
     z-index: 9000;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     bottom: -50px;
     left: 50%;
-    margin-left: -10px;
-    background: #0056b3;
-    border: 1px solid black;
+    margin-left: -5px;
+    background: $secondary;
+    border: 1px solid rgba($secondary,.8);
     border-radius: 50%;
 
     &.dot_active {
-        background: red;
+        background: rgba($secondary,.5);
 
         /* &:before {
              z-index: 9000;
@@ -588,7 +589,8 @@ export default {
     top: 50%;
     width: 10px;
     height: 10px;
-    background: white;
+    //background: white;
+    background: transparent;
     border-radius: 50%;
     margin-top: -5px;
     margin-left: -5px;

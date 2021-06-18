@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="app">
         <slidebar-component :editor="d_editor" />
         <canvas-component :editor="d_editor" />
     </div>
@@ -21,5 +21,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+.app {
+    display: flex;
+    min-height: 100vh;
+    align-items: stretch;
+}
+
+.content {
+    width: 100%;
+    padding: 15px;
+}
 </style>

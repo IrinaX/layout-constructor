@@ -37,7 +37,7 @@ export default {
                 * remove i in data, "if (this.i<src.length)","this.i++;", change "src: src[this.i]" to "src: src"
                 * replace "const src = ['urls']" with "const src = window.prompt('img src');"
                 * */
-            const src = [
+            /* const src = [
                 'https://i.pinimg.com/736x/98/b9/52/98b952001792e2b836669abf4d853712.jpg',
                 'https://i.pinimg.com/736x/ab/b6/a8/abb6a800ab2193fcedd9bda566b7402c.jpg',
                 'https://lifeglobe.net/x/entry/9559/1a.jpg',
@@ -46,7 +46,6 @@ export default {
                 'https://lifeglobe.net/x/entry/7821/1a.jpg',
                 'https://cs13.pikabu.ru/images/big_size_comm/2020-04_5/1587699265120062041.jpg',
                 'https://i.ytimg.com/vi/KCz1FOeCOq8/maxresdefault.jpg',
-
             ];
             if (this.i < src.length) {
                 this.editor.place({
@@ -58,7 +57,18 @@ export default {
                     },
                 });
                 this.i++;
-            }
+            } */
+            const src = 'https://picsum.photos/1400/800?random=' + this.i;
+
+            this.editor.place({
+                name: 'ImgComponent',
+                props: {
+                    editor: this.editor,
+                    src,
+                    active: false,
+                },
+            });
+            this.i++;
         },
     },
 };
